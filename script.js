@@ -1,92 +1,48 @@
-class Timer {
-  constructor(root) {
-    root.innerHTML = Timer.getHTML();
+var nameof = document.getElementById("name");
+var email = document.getElementById("email");
+var password = document.getElementById("password");
+var cpassword = document.getElementById("cpassword");
+var lowerCaseLetters = /[a-z]/g;
+var upperCaseLetters = /[A-Z]/g;
+var numbers = /[0-9]/g;
+var special = /[!@#$&*%]/g;
 
-    this.el = {
-      minutes: root.querySelector(".timer__part--minutes"),
-      seconds: root.querySelector(".timer__part--seconds"),
-      control: root.querySelector(".timer__btn--control"),
-      reset: root.querySelector(".timer__btn--reset"),
-    };
-
-    this.interval = null;
-    this.remainingSeconds = 0;
-
-    this.el.control.addEventListener("click", () => {
-      if (this.interval === null) {
-        this.start();
-      } else {
-        this.stop();
-      }
-    });
-
-    this.el.reset.addEventListener("click", () => {
-      const inputMinutes = prompt("Enter number of minutes:");
-
-      if (inputMinutes < 60) {
-        this.stop();
-        this.remainingSeconds = inputMinutes * 60;
-        this.updateInterfaceTime();
-      }
-    });
+nameof.addEventListener("input", function () {
+  if (nameof.value.length >= 3 && nameof.value.length <= 25) {
+    nameof.setCustomValidity("");
+  } else {
+    nameof.setCustomValidity("Name must be between 3 and 25 characters");
   }
+});
 
-  updateInterfaceTime() {
-    const minutes = Math.floor(this.remainingSeconds / 60);
-    const seconds = this.remainingSeconds % 60;
-
-    this.el.minutes.textContent = minutes.toString().padStart(2, "0");
-    this.el.seconds.textContent = seconds.toString().padStart(2, "0");
+email.addEventListener("input", function () {
+  if (email.validity.typeMismatch) {
+    email.setCustomValidity("Expecting an e-mail address");
+  } else {
+    email.setCustomValidity("");
   }
+});
 
-  updateInterfaceControls() {
-    if (this.interval === null) {
-      this.el.control.innerHTML = `<span class="material-icons">play_arrow</span>`;
-      this.el.control.classList.add("timer__btn--start");
-      this.el.control.classList.remove("timer__btn--stop");
-    } else {
-      this.el.control.innerHTML = `<span class="material-icons">pause</span>`;
-      this.el.control.classList.add("timer__btn--stop");
-      this.el.control.classList.remove("timer__btn--start");
-    }
+password.addEventListener("input", function () {
+  if (
+    password.value.length >= 8 &&
+    password.value.match(lowerCaseLetters) &&
+    password.value.match(upperCaseLetters) &&
+    password.value.match(numbers) &&
+    password.value.match(special)
+  ) {
+    password.setCustomValidity("");
+  } else {
+    password.setCustomValidity(
+      "The password must has at least 8 characters that include at least 1 lowercase character, 1 uppercase character, 1 number, and 1 special character!"
+    );
   }
+});
 
-  start() {
-    if (this.remainingSeconds === 0) return;
-
-    this.interval = setInterval(() => {
-      this.remainingSeconds--;
-      this.updateInterfaceTime();
-
-      if (this.remainingSeconds === 0) {
-        this.stop();
-      }
-    }, 1000);
-
-    this.updateInterfaceControls();
+cpassword.addEventListener("input", function () {
+  if (password.value == cpassword.value) {
+    cpassword.setCustomValidity("");
+  } else {
+    cpassword.setCustomValidity("Enter password correctly");
   }
-
-  stop() {
-    clearInterval(this.interval);
-
-    this.interval = null;
-
-    this.updateInterfaceControls();
-  }
-
-  static getHTML() {
-    return `
-			<span class="timer__part timer__part--minutes">00</span>
-			<span class="timer__part">:</span>
-			<span class="timer__part timer__part--seconds">00</span>
-			<button type="button" class="timer__btn timer__btn--control timer__btn--start">
-				<span class="material-icons">play_arrow</span>
-			</button>
-			<button type="button" class="timer__btn timer__btn--reset">
-				<span class="material-icons">timer</span>
-			</button>
-		`;
-  }
-}
-
-new Timer(document.querySelector(".timer"));
+});

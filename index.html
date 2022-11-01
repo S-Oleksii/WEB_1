@@ -7,16 +7,59 @@
       name="viewport"
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, height=device-height"
     />
-    <title>Таймер зворотного відліку</title>
+    <title>Form</title>
     <link rel="stylesheet" href="style.css" />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
   </head>
 
   <body>
-    <div class="timer"></div>
+    <div class="container">
+      <div class="title">Registration</div>
+      <div class="content">
+        <form action="#">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">Name</span>
+              <input
+                type="text"
+                id="name"
+                placeholder="Enter your name"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input
+                type="password"
+                id="cpassword"
+                placeholder="Confirm your password"
+                required
+              />
+            </div>
+          </div>
+          <div class="button">
+            <input type="submit" value="Register" />
+          </div>
+        </form>
+      </div>
+    </div>
     <script type="text/javascript" src="script.js"></script>
   </body>
 </html>
